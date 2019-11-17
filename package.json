@@ -1,29 +1,43 @@
 {
-  "name": "linhntaim",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
-  },
-  "dependencies": {
-    "core-js": "^3.3.2",
-    "vue": "^2.6.10",
-    "vue-router": "^3.1.3",
-    "vuex": "^3.0.1"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.0.0",
-    "@vue/cli-plugin-eslint": "^4.0.0",
-    "@vue/cli-plugin-router": "^4.0.0",
-    "@vue/cli-plugin-vuex": "^4.0.0",
-    "@vue/cli-service": "^4.0.0",
-    "babel-eslint": "^10.0.3",
-    "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.0.0",
-    "node-sass": "^4.12.0",
-    "sass-loader": "^8.0.0",
-    "vue-template-compiler": "^2.6.10"
-  }
+    "name": "linhntaim",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build",
+        "lint": "vue-cli-service lint",
+        "setup": "node app.setup.js",
+        "compile": "node app.compile.js"
+    },
+    "dependencies": {
+        "core-js": "^3.3.2",
+        "crypto-js": "^3.1.9-1",
+        "vue": "^2.6.10",
+        "vue-cookie": "^1.1.4",
+        "vue-head": "^2.1.2",
+        "vue-i18n": "^8.15.0",
+        "vue-router": "^3.1.3",
+        "vuex": "^3.0.1"
+    },
+    "devDependencies": {
+        "@fortawesome/fontawesome-free": "^5.11.2",
+        "@node-minify/core": "^5.2.0",
+        "@vue/cli-plugin-babel": "^4.0.0",
+        "@vue/cli-plugin-eslint": "^4.0.0",
+        "@vue/cli-plugin-router": "^4.0.0",
+        "@vue/cli-plugin-vuex": "^4.0.0",
+        "@vue/cli-service": "^4.0.0",
+        "animate.css": "^3.7.2",
+        "babel-eslint": "^10.0.3",
+        "bootstrap": "^4.3.1",
+        "cpx": "^1.5.0",
+        "eslint": "^5.16.0",
+        "eslint-plugin-vue": "^5.0.0",
+        "jquery": "^3.4.1",
+        "node-sass": "^4.12.0",
+        "pug": "^2.0.4",
+        "pug-plain-loader": "^1.0.0",
+        "sass-loader": "^8.0.0",
+        "vue-template-compiler": "^2.6.10"
+    }
 }
