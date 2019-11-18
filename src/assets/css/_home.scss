@@ -1,38 +1,114 @@
 @import "variables";
 
 #home {
-    background: #fff url("#{$staticUrl}/sites/img/background.jpg") center no-repeat;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    background: #fff url("#{$staticUrl}/sites/img/background.jpg") 35% 35% no-repeat;
     background-size: cover;
-
-    &::before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        display: block;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, .1);
-        content: '';
-    }
+    overflow-x: hidden;
+    overflow-y: auto;
 
     h1 {
         position: absolute;
-        top: 0;
-        right: 50%;
+        top: 5%;
+        left: 35%;
         font-size: 50px;
-        font-weight: 900;
         color: #fff;
-    }
-}
 
-@media (max-width: $md-max-width) {
-    #home {
-        background-position-x: 33.33%;
-    }
-}
+        @media (max-height: 640px) {
+            top: 25px;
+        }
 
-@media (max-height: 529px) {
-    #home {
-        background-position-y: 33.33%;
+        @media (max-width: 376px) {
+            right: 20px;
+            left: unset;
+        }
+    }
+
+    blockquote {
+        position: absolute;
+        top: 18%;
+        left: 28%;
+        border: 16px solid #fff;
+        width: 360px;
+        height: 360px;
+
+        @media (max-width: 818.18px) {
+            left: calc(50% - 180px);
+        }
+
+        @media (max-width: 376px) {
+            left: 0;
+            width: 100%;
+            border-left: none;
+            border-right: none;
+        }
+
+        @media (max-height: 640px) {
+            top: 115px;
+        }
+    }
+
+    nav {
+        position: absolute;
+        top: calc(18% + 360px - 100px);
+        left: 28%;
+        width: 360px;
+        padding-right: 16px;
+
+        .nav-item {
+            margin: 20px 0;
+            text-align: right;
+
+            a {
+                font-size: 36px;
+
+                span {
+                    padding: 10px 20px;
+                    color: #fff;
+                    white-space: nowrap;
+                }
+
+                &:hover {
+                    text-decoration: none;
+
+                    span {
+                        background-color: #fff;
+                        color: #000;
+                    }
+                }
+            }
+
+            &:not(:first-child) {
+                margin-right: -36px;
+            }
+        }
+
+        .nav-item-divider {
+            height: 20px;
+        }
+
+        @media (max-width: 818.18px) {
+            left: calc(50% - 180px);
+        }
+
+        @media (max-width: 376px) {
+            left: 0;
+            width: 100%;
+            padding-right: 0;
+
+            .nav-item {
+                &:not(:first-child) {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        @media (max-height: 640px) {
+            top: 375px;
+        }
     }
 }
