@@ -6,7 +6,7 @@
     left: 0;
     width: 100%;
     min-height: 100%;
-    background: #fff url("#{$staticUrl}/sites/img/background.jpg") 35% 35% no-repeat;
+    background: #fff url("#{$staticUrl}/sites/img/background.jpg") 33.33% 33.33% no-repeat;
     background-size: cover;
     overflow-x: hidden;
     overflow-y: auto;
@@ -110,5 +110,9 @@
         @media (max-height: 640px) {
             top: 375px;
         }
+    }
+
+    @media (max-width: $sm-max-width) {
+        background-position-x: 35%;
     }
 }
