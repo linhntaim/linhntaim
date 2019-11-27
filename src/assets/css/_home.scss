@@ -112,6 +112,32 @@
         }
     }
 
+    canvas {
+        position: absolute;
+        top: calc(18% + 222px);
+        left: calc(28% + 400px);
+        width: 360px;
+        height: 138px;
+
+        @media (max-width: $md-max-width) {
+            top: calc(18% + 360px + 202px);
+            left: 28%;
+        }
+
+        @media (max-width: 818.18px) {
+            left: calc(50% - 180px);
+        }
+
+        @media (max-width: 376px) {
+            left: 0;
+            width: 100%;
+        }
+
+        @media (max-height: 640px) {
+            top: 677px;
+        }
+    }
+
     @media (max-width: $sm-max-width) {
         background-position-x: 35%;
     }
