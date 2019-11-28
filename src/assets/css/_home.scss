@@ -138,6 +138,12 @@
         }
     }
 
+    #player {
+        position: absolute;
+        top: calc(18% + 400px);
+        left: calc(28% + 400px);
+    }
+
     @media (max-width: $sm-max-width) {
         background-position-x: 35%;
     }

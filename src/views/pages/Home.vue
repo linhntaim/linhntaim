@@ -15,6 +15,10 @@
                     span pinkspirit
             .nav-item-divider
         canvas#canvas
+        #player
+            img(:src="appUrl + '/sites/img/vinyl_player.png'")
+            img(:src="appUrl + '/sites/img/vinyl.png'")
+            img(:src="appUrl + '/sites/img/vinyl_handler.png'")
 </template>
 
 <script>
@@ -30,6 +34,7 @@
         name: 'Home',
         data() {
             return {
+                appUrl: APP_URL,
                 audioPlayer: new AudioPlayer().enableAutoplay().add(...PLAYLIST),
             }
         },
