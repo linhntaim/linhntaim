@@ -155,13 +155,27 @@
             left: -1px;
         }
 
-        .vinyl-handler {
+        .vinyl-power {
+            cursor: pointer;
             position: absolute;
-            top: 19px;
-            left: 178px;
+            top: 154px;
+            left: 5px;
+            height: 15px;
+            width: 42px;
+            border: none;
+            outline: none;
+            background: none;
+        }
+
+        .vinyl-handler {
+            cursor: pointer;
+            position: absolute;
+            top: 18px;
+            left: 182px;
             height: 146px;
 
-            &.playing {
+            &.playing, &.paused {
+                /* x = (R-a)(1-cosA) + 1; y = (R-a)sinA - 1; a = 30; R = 146 / 2 */
                 transform: rotate(30deg) translateX(-21px) translateY(8px);
             }
         }
@@ -172,11 +186,19 @@
             top: 12px;
             left: 22px;
             visibility: hidden;
+            animation: rotate 5s infinite linear;
+            animation-play-state: paused;
 
             &.playing {
+                cursor: pointer;
                 visibility: visible;
-                animation: rotate 5s infinite linear;
-                -webkit-animation: rotate 5s infinite linear;
+                animation-play-state: running;
+            }
+
+            &.paused {
+                cursor: pointer;
+                visibility: visible;
+                animation-play-state: paused;
             }
         }
 

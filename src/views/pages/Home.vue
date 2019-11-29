@@ -15,10 +15,11 @@
                     span pinkspirit
             .nav-item-divider
         canvas#canvas
-        #player(@dblclick="onPlayerDoubleClicked" @click="onPlayerClicked")
+        #player
             img.vinyl-player(:src="appUrl + '/sites/img/vinyl_player.png'")
-            img.vinyl(:class="{playing: audioPlayer.playing}" :src="appUrl + '/sites/img/vinyl.png'")
-            img.vinyl-handler(:class="{playing: audioPlayer.playing}" :src="appUrl + '/sites/img/vinyl_handler.png'")
+            img.vinyl(:class="{playing: playing, paused: paused}" :src="appUrl + '/sites/img/vinyl.png'" @click="onVinylClicked")
+            img.vinyl-handler(:class="{playing: playing, paused: paused}" :src="appUrl + '/sites/img/vinyl_handler.png'" @click="onVinylHandlerClicked")
+            button.vinyl-power(@click="onVinylPowerClicked")
 </template>
 
 <script>
@@ -28,6 +29,7 @@
 
     const PLAYLIST = [
         APP_URL + '/sites/sounds/if_you_want_love.mp3',
+        APP_URL + '/sites/sounds/song_for_zula.mp3',
     ]
 
     export default {
@@ -35,8 +37,16 @@
         data() {
             return {
                 appUrl: APP_URL,
-                audioPlayer: new AudioPlayer().enableAutoplay().enableLoop().add(...PLAYLIST),
+                audioPlayer: new AudioPlayer().enableAutoplay().enableLoop().add(...PLAYLIST).shuffle(),
             }
+        },
+        computed: {
+            playing() {
+                return this.audioPlayer.playing
+            },
+            paused() {
+                return !this.audioPlayer.playing && !this.audioPlayer.stopped
+            },
         },
         mounted() {
             this.play()
@@ -46,14 +56,7 @@
                 this.audioPlayer.start(this.playSucceed, this.playFailed)
             },
             playSucceed() {
-                const audioContext = new AudioContext()
-                const audioAnalyser = audioContext.createAnalyser()
-                audioContext.createMediaElementSource(this.audioPlayer.getAudio()).connect(audioAnalyser)
-                audioAnalyser.connect(audioContext.destination)
-                audioAnalyser.fftSize = 128
-                audioAnalyser.maxDecibels = 0
-                audioAnalyser.minDecibels = -100
-
+                const audioAnalyser = this.audioPlayer.audioAnalyser
                 const bufferLength = audioAnalyser.frequencyBinCount
                 const frequencyData = new Uint8Array(bufferLength)
 
@@ -88,18 +91,21 @@
                 }
                 $document.on('click', onDocumentClick)
             },
-            onPlayerClicked() {
+            onVinylClicked() {
                 if (this.audioPlayer.playing) {
                     this.audioPlayer.pause()
                 } else {
                     this.audioPlayer.playCurrent(this.playSucceed, this.playFailed)
                 }
             },
-            onPlayerDoubleClicked() {
-                if (this.audioPlayer.playing) {
+            onVinylHandlerClicked() {
+                this.audioPlayer.next()
+            },
+            onVinylPowerClicked() {
+                if (!this.audioPlayer.stopped) {
                     this.audioPlayer.stop()
                 } else {
-                    this.audioPlayer.playCurrent(this.playSucceed, this.playFailed)
+                    this.play()
                 }
             },
         },
