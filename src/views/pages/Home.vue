@@ -16,9 +16,9 @@
             .nav-item-divider
         canvas#canvas
         #player
-            img(:src="appUrl + '/sites/img/vinyl_player.png'")
-            img(:src="appUrl + '/sites/img/vinyl.png'")
-            img(:src="appUrl + '/sites/img/vinyl_handler.png'")
+            img.vinyl-player(:src="appUrl + '/sites/img/vinyl_player.png'")
+            img.vinyl(:class="{playing: audioPlayer.playing}" :src="appUrl + '/sites/img/vinyl.png'")
+            img.vinyl-handler(:class="{playing: audioPlayer.playing}" :src="appUrl + '/sites/img/vinyl_handler.png'")
 </template>
 
 <script>
@@ -35,7 +35,7 @@
         data() {
             return {
                 appUrl: APP_URL,
-                audioPlayer: new AudioPlayer().enableAutoplay().add(...PLAYLIST),
+                audioPlayer: new AudioPlayer().enableAutoplay().enableLoop().add(...PLAYLIST),
             }
         },
         mounted() {

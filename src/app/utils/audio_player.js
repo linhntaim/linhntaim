@@ -3,6 +3,7 @@ export class AudioPlayer {
         this.audio = new Audio()
         this.playlist = []
         this.currentIndex = -1
+        this.playing = false
     }
 
     getAudio() {
@@ -11,6 +12,11 @@ export class AudioPlayer {
 
     enableAutoplay() {
         this.audio.autoplay = true
+        return this
+    }
+
+    enableLoop() {
+        this.audio.loop = true
         return this
     }
 
@@ -38,9 +44,13 @@ export class AudioPlayer {
         if (currentSource) {
             this.audio.src = currentSource
             this.audio.play().then(() => {
+                this.playing = true
                 doneCallback && doneCallback()
             }).catch(err => {
                 errorCallback && errorCallback(err)
+            })
+            this.audio.addEventListener('ended', () => {
+                this.playing = false
             })
         }
     }
