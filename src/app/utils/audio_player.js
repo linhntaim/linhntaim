@@ -1,6 +1,8 @@
 export class AudioPlayer {
     constructor() {
         this.audio = new Audio()
+        this.audio.addEventListener('ended', this.onEnded)
+        this.audio.addEventListener('pause', this.onPaused)
         this.playlist = []
         this.currentIndex = -1
         this.playing = false
@@ -42,17 +44,34 @@ export class AudioPlayer {
     playCurrent(doneCallback = null, errorCallback = null) {
         const currentSource = this.getCurrentSource()
         if (currentSource) {
+            console.log('playCurrent')
             this.audio.src = currentSource
             this.audio.play().then(() => {
+                console.log('play')
                 this.playing = true
                 doneCallback && doneCallback()
             }).catch(err => {
                 errorCallback && errorCallback(err)
             })
-            this.audio.addEventListener('ended', () => {
-                this.playing = false
-            })
         }
     }
 
+    onPaused() {
+        console.log('paused')
+        this.playing = false
+    }
+
+    onEnded() {
+        console.log('ended')
+        this.playing = false
+    }
+
+    pause() {
+        this.audio.pause()
+    }
+
+    stop() {
+        this.pause()
+        this.audio.currentTime = 0
+    }
 }

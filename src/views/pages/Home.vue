@@ -15,7 +15,7 @@
                     span pinkspirit
             .nav-item-divider
         canvas#canvas
-        #player
+        #player(@dblclick="onPlayerDoubleClicked" @click="onPlayerClicked")
             img.vinyl-player(:src="appUrl + '/sites/img/vinyl_player.png'")
             img.vinyl(:class="{playing: audioPlayer.playing}" :src="appUrl + '/sites/img/vinyl.png'")
             img.vinyl-handler(:class="{playing: audioPlayer.playing}" :src="appUrl + '/sites/img/vinyl_handler.png'")
@@ -43,51 +43,64 @@
         },
         methods: {
             play() {
-                this.audioPlayer.start(
-                    () => {
-                        const audioContext = new AudioContext()
-                        const audioAnalyser = audioContext.createAnalyser()
-                        audioContext.createMediaElementSource(this.audioPlayer.getAudio()).connect(audioAnalyser)
-                        audioAnalyser.connect(audioContext.destination)
-                        audioAnalyser.fftSize = 128
-                        audioAnalyser.maxDecibels = 0
-                        audioAnalyser.minDecibels = -100
+                this.audioPlayer.start(this.playSucceed, this.playFailed)
+            },
+            playSucceed() {
+                const audioContext = new AudioContext()
+                const audioAnalyser = audioContext.createAnalyser()
+                audioContext.createMediaElementSource(this.audioPlayer.getAudio()).connect(audioAnalyser)
+                audioAnalyser.connect(audioContext.destination)
+                audioAnalyser.fftSize = 128
+                audioAnalyser.maxDecibels = 0
+                audioAnalyser.minDecibels = -100
 
-                        const bufferLength = audioAnalyser.frequencyBinCount
-                        const frequencyData = new Uint8Array(bufferLength)
+                const bufferLength = audioAnalyser.frequencyBinCount
+                const frequencyData = new Uint8Array(bufferLength)
 
-                        const canvas = document.getElementById('canvas')
-                        const canvasContext = canvas.getContext('2d')
-                        const canvasWidth = canvas.width
-                        const canvasHeight = canvas.height
+                const canvas = document.getElementById('canvas')
+                const canvasContext = canvas.getContext('2d')
+                const canvasWidth = canvas.width
+                const canvasHeight = canvas.height
 
-                        const barWidth = Math.floor(canvasWidth / bufferLength)
+                const barWidth = Math.floor(canvasWidth / bufferLength)
 
-                        const renderFrame = () => {
-                            requestAnimationFrame(renderFrame)
+                const renderFrame = () => {
+                    requestAnimationFrame(renderFrame)
 
-                            audioAnalyser.getByteFrequencyData(frequencyData)
-                            canvasContext.clearRect(0, 0, canvasWidth, canvasHeight)
-                            for (let i = 0; i < bufferLength; i++) {
-                                const barHeight = frequencyData[i]
-                                canvasContext.fillStyle = '#fff'
-                                canvasContext.fillRect(i * barWidth, canvasHeight - barHeight, barWidth - 1, barHeight)
-                            }
-                        }
-                        renderFrame()
-                    },
-                    err => {
-                        console.log(err)
+                    audioAnalyser.getByteFrequencyData(frequencyData)
+                    canvasContext.clearRect(0, 0, canvasWidth, canvasHeight)
+                    for (let i = 0; i < bufferLength; i++) {
+                        const barHeight = frequencyData[i]
+                        canvasContext.fillStyle = '#fff'
+                        canvasContext.fillRect(i * barWidth, canvasHeight - barHeight, barWidth - 1, barHeight)
+                    }
+                }
+                renderFrame()
+            },
+            playFailed(err) {
+                console.log(err)
 
-                        const $document = $ui(document)
-                        const onDocumentClick = () => {
-                            $document.off('click', onDocumentClick)
+                const $document = $ui(document)
+                const onDocumentClick = () => {
+                    $document.off('click', onDocumentClick)
 
-                            this.play()
-                        }
-                        $document.on('click', onDocumentClick)
-                    },
-                )
+                    this.play()
+                }
+                $document.on('click', onDocumentClick)
+            },
+            onPlayerClicked() {
+                if (this.audioPlayer.playing) {
+                    this.audioPlayer.pause()
+                } else {
+                    this.audioPlayer.playCurrent(this.playSucceed, this.playFailed)
+                }
+            },
+            onPlayerDoubleClicked() {
+                if (this.audioPlayer.playing) {
+                    this.audioPlayer.stop()
+                } else {
+                    this.audioPlayer.playCurrent(this.playSucceed, this.playFailed)
+                }
             },
         },
     }
