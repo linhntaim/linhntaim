@@ -96,9 +96,7 @@
                     }
                 })
             },
-            playFailed(err) {
-                console.log(err)
-
+            playFailed() {
                 const $document = $ui(document)
                 const onDocumentClick = () => {
                     $document.off('click', onDocumentClick)
