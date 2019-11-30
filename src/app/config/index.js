@@ -1,5 +1,5 @@
 export const APP_ENV = process.env.VUE_APP_ENV
-export const APP_DEBUG = process.env.VUE_APP_DEBUG
+export const APP_DEBUG = process.env.VUE_APP_DEBUG === 'true'
 export const APP_LOG_ONLY = process.env.VUE_APP_LOG_ONLY ? process.env.VUE_APP_LOG_ONLY.split(',') : []
 export const APP_HOST_SELF = 'self'
 export const APP_HOST_SUB = 'sub'
