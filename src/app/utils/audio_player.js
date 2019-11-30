@@ -97,7 +97,7 @@ export class AudioPlayer {
     }
 
     onEnded() {
-        this.playing = false
+        this.next()
     }
 
     pause() {

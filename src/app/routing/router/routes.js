@@ -31,4 +31,8 @@ export const routes = [
         },
         component: () => import('../../../views/pages/Home'),
     },
+    {
+        path: '*',
+        redirect: '/error/404',
+    },
 ]
