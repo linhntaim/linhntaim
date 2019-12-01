@@ -53,3 +53,56 @@ export const DEFAULT_LOCALIZATION = {
     short_time_format: 0,
     time_offset: 0,
 }
+export const APP_DEFAULT_META = [{
+    id: 'og-title',
+    property: 'og:title',
+    content: APP_NAME,
+}, {
+    id: 'og-description',
+    property: 'og:description',
+    content: APP_DESCRIPTION,
+}, {
+    id: 'og-url',
+    property: 'og:url',
+    content: APP_URL,
+}, {
+    id: 'og-type',
+    property: 'og:type',
+    content: 'website',
+}, {
+    id: 'og-image',
+    property: 'og:image',
+    content: APP_URL + '/sites/img/cover.jpg',
+}, {
+    id: 'og-image-alt',
+    property: 'og:image:alt',
+    content: 'Cover image',
+}, {
+    id: 'fb-app-id',
+    property: 'fb:app_id',
+    content: process.env.VUE_APP_FACEBOOK_APP_ID,
+}, {
+    id: 'twitter-card',
+    property: 'twitter:card',
+    content: 'summary',
+}, {
+    id: 'twitter-site',
+    property: 'twitter:site',
+    content: '@' + process.env.VUE_APP_TWITTER_USERNAME,
+}, {
+    id: 'twitter-creator',
+    property: 'twitter:creator',
+    content: '@' + process.env.VUE_APP_TWITTER_USERNAME,
+}, {
+    id: 'google-verification',
+    name: 'google-site-verification',
+    content: process.env.VUE_APP_GOOGLE_VERIFICATION,
+}, {
+    id: 'bing-verification',
+    name: 'msvalidate.01',
+    content: process.env.VUE_APP_BING_VERIFICATION,
+}, {
+    id: 'yandex-verification',
+    name: 'yandex-verification',
+    content: process.env.VUE_APP_YANDEX_VERIFICATION,
+}]

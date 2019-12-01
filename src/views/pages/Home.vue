@@ -50,6 +50,9 @@
 
     export default {
         name: 'Home',
+        head: {
+            meta: [],
+        },
         data() {
             return {
                 appUrl: APP_URL,
