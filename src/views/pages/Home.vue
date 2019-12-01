@@ -1,29 +1,31 @@
 <template lang="pug">
-    #home
-        h1 LINHNTAIM
-        blockquote
-        nav
-            .nav-item
-                a(href="https://hey.linhntaim.com" target="_blank")
-                    span hey
-            .nav-item-divider
-            .nav-item
-                a(href="https://resume.linhntaim.com" target="_blank")
-                    span my resume
-            .nav-item
-                a(href="https://pinkspirit.linhntaim.com" target="_blank")
-                    span pinkspirit
-            .nav-item-divider
-        canvas#canvas
-        #player
-            img.vinyl-player(:src="appUrl + '/sites/img/vinyl_player.png'")
-            img.vinyl(:class="{playing: playing, paused: paused}" :src="appUrl + '/sites/img/vinyl.png'" @click="onVinylClicked")
-            img.vinyl-handler(:class="{playing: playing, paused: paused}" :src="appUrl + '/sites/img/vinyl_handler.png'" @click="onVinylHandlerClicked")
-            img.vinyl-led.grey(:class="{playing: playing, paused: paused}" :src="appUrl + '/sites/img/vinyl_led_grey.png'")
-            img.vinyl-led.red(v-if="playing" :class="{playing: playing, paused: paused}" :src="appUrl + '/sites/img/vinyl_led_red.png'")
-            img.vinyl-led.yellow(v-if="paused" :class="{playing: playing, paused: paused}" :src="appUrl + '/sites/img/vinyl_led_yellow.png'")
-            img.vinyl-led.green(v-if="stopped" :class="{playing: playing, paused: paused}" :src="appUrl + '/sites/img/vinyl_led_green.png'")
-            button.vinyl-power(@click="onVinylPowerClicked")
+    .home
+        .background
+        .content
+            h1 LINHNTAIM
+            blockquote
+            nav
+                .nav-item
+                    a(href="https://hey.linhntaim.com" target="_blank")
+                        span hey
+                .nav-item-divider
+                .nav-item
+                    a(href="https://resume.linhntaim.com" target="_blank")
+                        span my resume
+                .nav-item
+                    a(href="https://pinkspirit.linhntaim.com" target="_blank")
+                        span pinkspirit
+                .nav-item-divider
+            canvas
+            .player
+                img.vinyl-turntable(:src="appUrl + '/sites/img/vinyl_player.png'")
+                img.vinyl(:class="{playing: playing, paused: paused}" :src="appUrl + '/sites/img/vinyl.png'" @click="onVinylClicked")
+                img.vinyl-handler(:class="{playing: playing, paused: paused}" :src="appUrl + '/sites/img/vinyl_handler.png'" @click="onVinylHandlerClicked")
+                img.vinyl-led.grey(:class="{playing: playing, paused: paused}" :src="appUrl + '/sites/img/vinyl_led_grey.png'")
+                img.vinyl-led.red(v-if="playing" :class="{playing: playing, paused: paused}" :src="appUrl + '/sites/img/vinyl_led_red.png'")
+                img.vinyl-led.yellow(v-if="paused" :class="{playing: playing, paused: paused}" :src="appUrl + '/sites/img/vinyl_led_yellow.png'")
+                img.vinyl-led.green(v-if="stopped" :class="{playing: playing, paused: paused}" :src="appUrl + '/sites/img/vinyl_led_green.png'")
+                button.vinyl-power(@click="onVinylPowerClicked")
 </template>
 
 <script>
@@ -79,7 +81,7 @@
                 const bufferLength = audioAnalyser.frequencyBinCount
                 const frequencyData = new Uint8Array(bufferLength)
 
-                const canvas = document.getElementById('canvas')
+                const canvas = document.getElementsByTagName('canvas')[0]
                 const canvasContext = canvas.getContext('2d')
                 const canvasWidth = canvas.width
                 const canvasHeight = canvas.height
@@ -104,14 +106,11 @@
                     this.play()
                 }
 
-                timeoutCaller.register(() => {
-                    $document.on('click', onDocumentClick)
-
-                    this.offCanvas()
-                })
+                $document.on('click', onDocumentClick)
+                this.offCanvas()
             },
             offCanvas() {
-                const canvas = document.getElementById('canvas')
+                const canvas = document.getElementsByTagName('canvas')[0]
                 const canvasContext = canvas.getContext('2d')
                 const canvasWidth = canvas.width
                 const canvasHeight = canvas.height
@@ -152,7 +151,3 @@
         },
     }
 </script>
-
-<style scoped>
-
-</style>

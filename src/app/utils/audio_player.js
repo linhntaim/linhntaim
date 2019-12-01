@@ -72,7 +72,7 @@ export class AudioPlayer {
             this.audio.currentTime = 0
         }
 
-        return this.audio.play().then(() => {
+        const done = () => {
             if (!this.audioContext) {
                 this.audioContext = new AudioContext()
                 this.audioAnalyser = this.audioContext.createAnalyser()
@@ -87,9 +87,27 @@ export class AudioPlayer {
             this.playing = true
             this.stopped = false
             doneCallback && doneCallback()
-        }).catch(err => {
+        }
+        const error = err => {
             errorCallback && errorCallback(err)
-        })
+        }
+
+        try {
+            const played = this.audio.play()
+            if (played) {
+                return played.then(done).catch(error)
+            }
+
+            if (this.audio.paused) {
+                error(null)
+                return false
+            }
+            done()
+            return true
+        } catch (e) {
+            error(e)
+            return false
+        }
     }
 
     onPaused() {
