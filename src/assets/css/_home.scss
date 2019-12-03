@@ -42,16 +42,20 @@
             }
         }
 
+        $blockLeft: 28%;
+        $blockSize: 360px;
+        $blockBorderSize: 16px;
+
         blockquote {
             position: absolute;
             top: 18%;
-            left: 28%;
-            border: 16px solid #fff;
-            width: 360px;
-            height: 360px;
+            left: $blockLeft;
+            border: #{$blockBorderSize} solid #fff;
+            width: $blockSize;
+            height: $blockSize;
 
             @media (max-width: 818.18px) {
-                left: calc(50% - 180px);
+                left: calc(50% - #{$blockSize / 2});
             }
 
             @media (max-width: 376px) {
@@ -66,12 +70,15 @@
             }
         }
 
+        $navUp: 100px;
+        $navPaddingX: 20px;
+
         nav {
             position: absolute;
-            top: calc(18% + 360px - 100px);
-            left: 28%;
-            width: 360px;
-            padding-right: 16px;
+            top: calc(18% + #{$blockSize - $navUp});
+            left: $blockLeft;
+            width: $blockSize;
+            padding-right: #{$blockBorderSize};
 
             .nav-item {
                 margin: 20px 0;
@@ -81,7 +88,7 @@
                     font-size: 36px;
 
                     span {
-                        padding: 10px 20px;
+                        padding: 10px #{$navPaddingX};
                         color: #fff;
                         white-space: nowrap;
                     }
@@ -97,16 +104,16 @@
                 }
 
                 &:not(:first-child) {
-                    margin-right: -36px;
+                    margin-right: -#{$blockBorderSize + $navPaddingX};
                 }
             }
 
             .nav-item-divider {
-                height: 20px;
+                height: #{$navPaddingX};
             }
 
             @media (max-width: 818.18px) {
-                left: calc(50% - 180px);
+                left: calc(50% - #{$blockSize / 2});
             }
 
             @media (max-width: 376px) {
