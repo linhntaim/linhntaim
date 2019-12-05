@@ -15,6 +15,9 @@
                 .nav-item
                     a(href="https://pinkspirit.linhntaim.com" target="_blank")
                         span pinkspirit
+                .nav-item
+                    a(href="https://dev.linhntaim.com" target="_blank")
+                        span dev
                 .nav-item-divider
             canvas
             .player
