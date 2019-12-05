@@ -22,5 +22,5 @@ yarn-error.log*
 
 # Custom
 .env
-.env.backup
+.env.backup*
 public/css/style.min.css
