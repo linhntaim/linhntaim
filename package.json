@@ -7,7 +7,8 @@
         "build": "npm run compile && vue-cli-service build",
         "lint": "npm run compile && vue-cli-service lint",
         "setup": "node app.setup.js",
-        "compile": "node app.compile.js"
+        "compile": "node app.compile.js",
+        "routes": "node app.routes.js"
     },
     "dependencies": {
         "core-js": "^3.3.2",
