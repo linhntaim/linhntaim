@@ -25,70 +25,87 @@
         overflow-x: hidden;
         overflow-y: auto;
 
+        $goldenRatio: 1.618;
+
+        $lineHeight: 1.5;
+
+        $mediaMaxHeight: 640px;
+        $mediaWidthTiny: 376px;
+        $mediaWidthMedium: 818.18px;
+
+        $h1FontSize: 50px;
+        $h1TopAtMaxHeight: 25px;
+
+        $blockTop: 18%;
+        $blockLeft: 28%;
+        $blockSize: 360px;
+        $blockBorderSize: 16px;
+        $blockTopAtMediaMaxHeight: $h1FontSize * $lineHeight + 2 * $h1TopAtMaxHeight;
+
+        $navUp: 100px;
+        $navPaddingX: 20px;
+        $navFontSize: 36px;
+        $navItemCounter: 4;
+        $navHeight: $navFontSize * $lineHeight * $navItemCounter  + $navItemCounter * 2 * $navPaddingX;
+
         h1 {
             position: absolute;
             top: 5%;
             left: 35%;
-            font-size: 50px;
+            font-size: $h1FontSize;
+            line-height: $lineHeight;
             color: #fff;
 
-            @media (max-height: 640px) {
-                top: 25px;
+            @media (max-width: $mediaWidthTiny) {
+                right: $navPaddingX;
+                left: unset;
             }
 
-            @media (max-width: 376px) {
-                right: 20px;
-                left: unset;
+            @media (max-height: $mediaMaxHeight) {
+                top: $h1TopAtMaxHeight;
             }
         }
 
-        $blockLeft: 28%;
-        $blockSize: 360px;
-        $blockBorderSize: 16px;
-
         blockquote {
             position: absolute;
-            top: 18%;
+            top: $blockTop;
             left: $blockLeft;
-            border: #{$blockBorderSize} solid #fff;
+            border: $blockBorderSize solid #fff;
             width: $blockSize;
             height: $blockSize;
 
-            @media (max-width: 818.18px) {
+            @media (max-width: $mediaWidthMedium) {
                 left: calc(50% - #{$blockSize / 2});
             }
 
-            @media (max-width: 376px) {
+            @media (max-width: $mediaWidthTiny) {
                 left: 0;
                 width: 100%;
                 border-left: none;
                 border-right: none;
             }
 
-            @media (max-height: 640px) {
-                top: 115px;
+            @media (max-height: $mediaMaxHeight) {
+                top: $blockTopAtMediaMaxHeight;
             }
         }
 
-        $navUp: 100px;
-        $navPaddingX: 20px;
-
         nav {
             position: absolute;
-            top: calc(18% + #{$blockSize - $navUp});
+            top: calc(#{$blockTop} + #{$blockSize - $navUp});
             left: $blockLeft;
             width: $blockSize;
             padding-right: #{$blockBorderSize};
 
             .nav-item {
-                margin: 20px 0;
+                margin: $navPaddingX 0;
                 text-align: right;
 
                 a {
-                    font-size: 36px;
+                    font-size: $navFontSize;
 
                     span {
-                        padding: 10px #{$navPaddingX};
+                        padding: #{$navPaddingX / 2} $navPaddingX;
                         color: #fff;
                         white-space: nowrap;
                     }
@@ -109,14 +126,14 @@
             }
 
             .nav-item-divider {
-                height: #{$navPaddingX};
+                height: $navPaddingX;
             }
 
-            @media (max-width: 818.18px) {
+            @media (max-width: $mediaWidthMedium) {
                 left: calc(50% - #{$blockSize / 2});
             }
 
-            @media (max-width: 376px) {
+            @media (max-width: $mediaWidthTiny) {
                 left: 0;
                 width: 100%;
                 padding-right: 0;
@@ -128,47 +145,49 @@
                 }
             }
 
-            @media (max-height: 640px) {
-                top: 375px;
+            @media (max-height: $mediaMaxHeight) {
+                top: $blockTopAtMediaMaxHeight + $blockSize - $navUp;
             }
         }
 
+        $canvasHeight: $blockSize - $blockSize / $goldenRatio;
+
         canvas {
             position: absolute;
-            top: calc(18% + 222px);
-            left: calc(28% + 400px);
-            width: 360px;
-            height: 138px;
+            top: calc(#{$blockTop} + #{$blockSize - $canvasHeight});
+            left: calc(#{$blockLeft} + #{$blockSize + 2 * $navPaddingX});
+            width: $blockSize;
+            height: $canvasHeight;
 
             @media (max-width: $md-max-width) {
-                top: calc(18% + 360px + 202px);
-                left: 28%;
+                top: calc(#{$blockTop} + #{$blockSize + $navHeight - $navUp});
+                left: $blockLeft;
             }
 
-            @media (max-width: 818.18px) {
-                left: calc(50% - 180px);
+            @media (max-width: $mediaWidthMedium) {
+                left: calc(50% - #{$blockSize / 2});
             }
 
-            @media (max-width: 376px) {
+            @media (max-width: $mediaWidthTiny) {
                 left: 0;
                 width: 100%;
             }
 
-            @media (max-height: 640px) and (min-width: $lg-min-width) {
-                top: 337px;
+            @media (max-height: $mediaMaxHeight) and (min-width: $lg-min-width) {
+                top: $blockTopAtMediaMaxHeight + $blockSize - $canvasHeight;
             }
 
-            @media (max-height: 640px) and (max-width: 818.18px) {
-                top: 677px;
+            @media (max-height: $mediaMaxHeight) and (max-width: $mediaWidthMedium) {
+                top: $blockTopAtMediaMaxHeight + $blockSize + $navHeight - $navUp;
             }
         }
 
         .player {
             position: absolute;
-            top: calc(18% + 400px);
-            left: calc(28% + 400px);
-            width: 360px;
-            height: 214px;
+            top: calc(#{$blockTop} + #{$blockSize + $navPaddingX * 2});
+            left: calc(#{$blockLeft} + #{$blockSize + $navPaddingX * 2});
+            width: $blockSize;
+            height: $canvasHeight * 2;
 
             .vinyl-turntable {
                 position: absolute;
@@ -260,25 +279,25 @@
             }
 
             @media (max-width: $md-max-width) {
-                top: calc(18% + 360px + 380px);
-                left: 28%;
+                top: calc(#{$blockTop} + #{$blockSize + $navHeight - $navUp + $canvasHeight + $navPaddingX * 2});
+                left: $blockLeft;
             }
 
-            @media (max-width: 818.18px) {
-                left: calc(50% - 180px);
+            @media (max-width: $mediaWidthMedium) {
+                left: calc(50% - #{$blockSize / 2});
             }
 
-            @media (max-width: 376px) {
+            @media (max-width: $mediaWidthTiny) {
                 left: 0;
                 width: 100%;
             }
 
-            @media (max-height: 640px) and (min-width: $lg-min-width) {
-                top: 515px;
+            @media (max-height: $mediaMaxHeight) and (min-width: $lg-min-width) {
+                top: $blockTopAtMediaMaxHeight + $navHeight - $navUp + $canvasHeight + $navPaddingX * 2;
             }
 
-            @media (max-height: 640px) and (max-width: 818.18px) {
-                top: 855px;
+            @media (max-height: $mediaMaxHeight) and (max-width: $mediaWidthMedium) {
+                top: $blockTopAtMediaMaxHeight + $blockSize + $navHeight - $navUp + $canvasHeight + $navPaddingX * 2;
             }
         }
     }
