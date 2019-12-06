@@ -1,4 +1,11 @@
-const {imports, routes} = require('./src/app/routing/router/routes.def')
+const fs = require('fs')
+const path = require('path')
+
+const inRoutesDefFile = './src/app/routing/router/routes.def.js'
+if (!fs.existsSync(inRoutesDefFile)) {
+    console.log('Route Definition does not exist!')
+    return
+}
 
 const stringOrRaw = value => {
     return typeof value === 'object' ? value.raw : '\'' + value + '\''
@@ -28,10 +35,12 @@ class RoutesContent {
     }
 }
 
+console.log('Creating routes from definition...')
+
+const {imports, routes} = require(inRoutesDefFile)
+
 const routesContent = new RoutesContent()
 imports.forEach(i => routesContent.insertImport(i))
-routesContent.insertBlank()
-routesContent.insertLine('export const routes = [')
 const traverseRoute = (route, tabs = 1) => {
     routesContent.insertLine('{', tabs)
     if (route.hasOwnProperty('path')) {
@@ -62,21 +71,25 @@ const traverseRoute = (route, tabs = 1) => {
     }
     routesContent.insertLine('},', tabs)
 }
-routes.forEach(route => traverseRoute(route, 1))
-routesContent.insertLine(']')
+for (let subRouteName in routes) {
+    routesContent.insertBlank()
+    routesContent.insertLine('export const ' + subRouteName + ' = [')
+    routes[subRouteName].forEach(route => traverseRoute(route, 1))
+    routesContent.insertLine(']')
+}
 
 /* Write routes.js */
-const fs = require('fs')
-const path = require('path')
-const outFile = 'src/app/routing/router/routes.js'
-const outDir = path.dirname(outFile)
-if (!fs.existsSync(outDir)) {
-    fs.mkdirSync(outDir, {
+const outRoutesFile = 'src/app/routing/router/routes.js'
+const outRoutesDir = path.dirname(outRoutesFile)
+if (!fs.existsSync(outRoutesDir)) {
+    fs.mkdirSync(outRoutesDir, {
         recursive: true,
     })
 }
-fs.writeFile(outFile, routesContent.output(), function (err) {
+fs.writeFile(outRoutesFile, routesContent.output(), function (err) {
     if (err) {
         console.log(err)
     }
 })
+
+console.log('Routes created!')
