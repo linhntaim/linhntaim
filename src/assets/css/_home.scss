@@ -177,7 +177,7 @@
                 top: $blockTopAtMediaMaxHeight + $blockSize - $canvasHeight;
             }
 
-            @media (max-height: $mediaMaxHeight) and (max-width: $mediaWidthMedium) {
+            @media (max-height: $mediaMaxHeight) and (max-width: $md-max-width) {
                 top: $blockTopAtMediaMaxHeight + $blockSize + $navHeight - $navUp;
             }
         }
@@ -293,10 +293,10 @@
             }
 
             @media (max-height: $mediaMaxHeight) and (min-width: $lg-min-width) {
-                top: $blockTopAtMediaMaxHeight + $navHeight - $navUp + $canvasHeight + $navPaddingX * 2;
+                top: $blockTopAtMediaMaxHeight + $blockSize + $navPaddingX * 2;
             }
 
-            @media (max-height: $mediaMaxHeight) and (max-width: $mediaWidthMedium) {
+            @media (max-height: $mediaMaxHeight) and (max-width: $md-max-width) {
                 top: $blockTopAtMediaMaxHeight + $blockSize + $navHeight - $navUp + $canvasHeight + $navPaddingX * 2;
             }
         }
