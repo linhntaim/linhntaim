@@ -3,10 +3,10 @@ import {all} from '../middleware'
 export const routes = [
     {
         path: '/error',
-        component: () => import('../../../views/master/Error'),
         meta: {
             middleware: all,
         },
+        component: () => import('../../../views/master/Error'),
         children: [
             {
                 path: '',

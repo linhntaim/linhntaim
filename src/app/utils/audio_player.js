@@ -1,3 +1,5 @@
+import {browser} from './browser'
+
 export class AudioPlayer {
     constructor() {
         this.audioContext = null
@@ -51,12 +53,15 @@ export class AudioPlayer {
         this.currentIndex = index
         const currentSource = this.currentSource()
         if (currentSource) {
-            let startOver = false
             if (this.audio.src !== currentSource) {
-                this.audio.src = currentSource
-                startOver = true
+                this.audio.src = currentSource // can be played at this time caused by autoplay
+                this.audio.addEventListener('loadedmetadata', () => {
+                    this.playCurrent(doneCallback, errorCallback, true)
+                })
+                return true
+            } else {
+                return this.playCurrent(doneCallback, errorCallback, false)
             }
-            return this.playCurrent(doneCallback, errorCallback, startOver)
         }
 
         return false
@@ -73,7 +78,7 @@ export class AudioPlayer {
         }
 
         const done = () => {
-            if (!this.audioContext) {
+            if (!this.audioContext && !browser.matched('ie')) {
                 this.audioContext = new AudioContext()
                 this.audioAnalyser = this.audioContext.createAnalyser()
                 this.audioAnalyser.fftSize = 128

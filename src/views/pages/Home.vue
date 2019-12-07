@@ -37,6 +37,7 @@
     import {APP_URL} from '../../app/config'
     import {timeoutCaller} from '../../app/utils/timeout_caller'
     import {FrameCaller} from '../../app/utils/frame_caller'
+    import {browser} from '../../app/utils/browser'
 
     const PLAYLIST = [
         APP_URL + '/sites/sounds/if_you_want_love.mp3',
@@ -83,26 +84,28 @@
                 this.audioPlayer.start(this.playSucceed, this.playFailed)
             },
             playSucceed() {
-                const audioAnalyser = this.audioPlayer.audioAnalyser
-                const bufferLength = audioAnalyser.frequencyBinCount
-                const frequencyData = new Uint8Array(bufferLength)
+                if (!browser.matched('ie')) {
+                    const audioAnalyser = this.audioPlayer.audioAnalyser
+                    const bufferLength = audioAnalyser.frequencyBinCount
+                    const frequencyData = new Uint8Array(bufferLength)
 
-                const canvas = document.getElementsByTagName('canvas')[0]
-                const canvasContext = canvas.getContext('2d')
-                const canvasWidth = canvas.width
-                const canvasHeight = canvas.height
+                    const canvas = document.getElementsByTagName('canvas')[0]
+                    const canvasContext = canvas.getContext('2d')
+                    const canvasWidth = canvas.width
+                    const canvasHeight = canvas.height
 
-                const barWidth = Math.floor(canvasWidth / bufferLength)
+                    const barWidth = Math.floor(canvasWidth / bufferLength)
 
-                this.frameCaller.call(() => {
-                    audioAnalyser.getByteFrequencyData(frequencyData)
-                    canvasContext.clearRect(0, 0, canvasWidth, canvasHeight)
-                    for (let i = 0; i < bufferLength; i++) {
-                        const barHeight = frequencyData[i]
-                        canvasContext.fillStyle = '#fff'
-                        canvasContext.fillRect(i * barWidth, canvasHeight - barHeight, barWidth - 1, barHeight)
-                    }
-                })
+                    this.frameCaller.call(() => {
+                        audioAnalyser.getByteFrequencyData(frequencyData)
+                        canvasContext.clearRect(0, 0, canvasWidth, canvasHeight)
+                        for (let i = 0; i < bufferLength; i++) {
+                            const barHeight = frequencyData[i]
+                            canvasContext.fillStyle = '#fff'
+                            canvasContext.fillRect(i * barWidth, canvasHeight - barHeight, barWidth - 1, barHeight)
+                        }
+                    })
+                } else this.offCanvas()
             },
             playFailed() {
                 const $document = $ui(document)
