@@ -88,5 +88,5 @@ exports.createRoutes = (inRoutesDefFile, outRoutesFile) => {
         }
     })
 
-    console.log('Routes created!')
+    console.log('Routes created!\n')
 }

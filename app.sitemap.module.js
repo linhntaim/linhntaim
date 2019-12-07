@@ -144,5 +144,5 @@ exports.createSiteMap = (inRoutesDefFile, outSiteMapDir) => {
         }
     })
 
-    console.log('Sitemap created!')
+    console.log('Sitemap created!\n')
 }
