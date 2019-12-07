@@ -6,40 +6,43 @@ exports.imports = [
 ]
 
 exports.routes = {
-    routes: [
-        {
-            path: '/error',
-            component: {raw: '() => import(\'../../../views/master/Error\')'},
-            meta: {
-                middleware: {raw: 'all'},
+    routes: {
+        name: 'home',
+        routes: [
+            {
+                path: '/error',
+                component: {raw: '() => import(\'../../../views/master/Error\')'},
+                meta: {
+                    middleware: {raw: 'all'},
+                },
+                children: [
+                    {
+                        path: '',
+                        component: {raw: '() => import(\'../../../views/error/NotFound\')'},
+                    },
+                    {
+                        path: '404',
+                        name: 'not_found',
+                        component: {raw: '() => import(\'../../../views/error/NotFound\')'},
+                    },
+                    {
+                        path: '*',
+                        component: {raw: '() => import(\'../../../views/error/NotFound\')'},
+                    },
+                ],
             },
-            children: [
-                {
-                    path: '',
-                    component: {raw: '() => import(\'../../../views/error/NotFound\')'},
+            {
+                path: '/',
+                name: 'home',
+                meta: {
+                    middleware: {raw: 'all'},
                 },
-                {
-                    path: '404',
-                    name: 'not_found',
-                    component: {raw: '() => import(\'../../../views/error/NotFound\')'},
-                },
-                {
-                    path: '*',
-                    component: {raw: '() => import(\'../../../views/error/NotFound\')'},
-                },
-            ],
-        },
-        {
-            path: '/',
-            name: 'home',
-            meta: {
-                middleware: {raw: 'all'},
+                component: {raw: '() => import(\'../../../views/pages/Home\')'},
             },
-            component: {raw: '() => import(\'../../../views/pages/Home\')'},
-        },
-        {
-            path: '*',
-            redirect: '/error/404',
-        },
-    ],
+            {
+                path: '*',
+                redirect: '/error/404',
+            },
+        ],
+    },
 }

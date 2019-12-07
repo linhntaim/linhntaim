@@ -6,8 +6,10 @@ export const APP_HOST_SUB = 'sub'
 export const APP_HOST = process.env.VUE_APP_HOST ? process.env.VUE_APP_HOST : APP_HOST_SELF
 export const APP_HOST_SUB_PATH = APP_HOST === APP_HOST_SUB ? process.env.VUE_APP_HOST_SUB_PATH : ''
 export const APP_NAME = process.env.VUE_APP_NAME
-export const APP_AUTHOR = process.env.VUE_APP_AUTHOR
+export const APP_VERSION = process.env.VUE_APP_VERSION
+export const APP_TITLE = process.env.VUE_APP_TITLE
 export const APP_DESCRIPTION = process.env.VUE_APP_DESCRIPTION
+export const APP_AUTHOR = process.env.VUE_APP_AUTHOR
 export const APP_URL = window.location.origin + (APP_HOST === APP_HOST_SUB ? APP_HOST_SUB_PATH : '')
 export const APP_LOGO_URL = {
     original: APP_URL + '/sites/logos/logo.png',
@@ -56,7 +58,7 @@ export const DEFAULT_LOCALIZATION = {
 export const APP_DEFAULT_META = [{
     id: 'og-title',
     property: 'og:title',
-    content: APP_NAME,
+    content: APP_TITLE,
 }, {
     id: 'og-description',
     property: 'og:description',

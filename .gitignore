@@ -24,4 +24,4 @@ yarn-error.log*
 .env
 .env.backup*
 public/css/style.min.css
-public/sitemap*
+public/sitemap*.xml

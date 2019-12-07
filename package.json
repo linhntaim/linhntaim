@@ -8,7 +8,8 @@
         "lint": "npm run compile && npm run routes && vue-cli-service lint",
         "setup": "node app.setup.js",
         "compile": "node app.compile.js",
-        "routes": "node app.routes.js"
+        "routes": "node app.routes.js",
+        "sitemap": "node app.routes.js --sitemap"
     },
     "dependencies": {
         "core-js": "^3.3.2",
