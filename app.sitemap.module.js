@@ -115,11 +115,13 @@ exports.createSiteMap = (inRoutesDefFile, outSiteMapDir) => {
 
         const routePath = pathTrim(route.path)
         path = routePath && path ? path + '/' + routePath : (path ? path : routePath)
-        siteMapIndex.insertUrl(path ? siteMapUrlPath + '/' + path : siteMapUrlPath)
 
         if (route.hasOwnProperty('children')) {
             route.children.forEach(r => traverseRoute(r, path))
+            return
         }
+        
+        siteMapIndex.insertUrl(path ? siteMapUrlPath + '/' + path : siteMapUrlPath)
     }
     for (let subRouteName in routes) {
         const subRoute = routes[subRouteName]
