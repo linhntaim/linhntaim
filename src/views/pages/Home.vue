@@ -50,6 +50,7 @@
         APP_URL + '/sites/sounds/another_love.mp3',
         APP_URL + '/sites/sounds/there_are_worse_games_to_play.mp3',
         APP_URL + '/sites/sounds/yellow_flicker_beat.mp3',
+        APP_URL + '/sites/sounds/dance_monkey.mp3',
     ]
 
     export default {
