@@ -13,6 +13,10 @@ class Browser {
         return this.browser ? this.browser.version : null
     }
 
+    getOs() {
+        return this.browser ? this.browser.os : null
+    }
+
     matched(browserName, strict = true) {
         const name = this.getName()
         return name
