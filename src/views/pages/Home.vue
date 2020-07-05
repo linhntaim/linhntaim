@@ -109,15 +109,14 @@
                 } else this.offCanvas()
             },
             playFailed() {
+                this.offCanvas()
+
                 const $document = $ui(document)
                 const onDocumentClick = () => {
                     $document.off('click', onDocumentClick)
-
                     this.play()
                 }
-
                 $document.on('click', onDocumentClick)
-                this.offCanvas()
             },
             offCanvas() {
                 const canvas = document.getElementsByTagName('canvas')[0]

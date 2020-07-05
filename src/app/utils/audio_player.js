@@ -79,14 +79,29 @@ export class AudioPlayer {
 
         const done = () => {
             if (!this.audioContext && !browser.matched('ie')) {
-                this.audioContext = new AudioContext()
+                this.audioContext = new (window.AudioContext || window.webkitAudioContext)()
                 this.audioAnalyser = this.audioContext.createAnalyser()
                 this.audioAnalyser.fftSize = 128
                 this.audioAnalyser.maxDecibels = 0
                 this.audioAnalyser.minDecibels = -100
-                this.audioContext.createMediaElementSource(this.audio)
-                    .connect(this.audioAnalyser)
-                this.audioAnalyser.connect(this.audioContext.destination)
+
+                const connect = () => {
+                    this.audioContext.createMediaElementSource(this.audio)
+                        .connect(this.audioAnalyser)
+                    this.audioAnalyser.connect(this.audioContext.destination)
+                }
+                if (browser.getOs().toLowerCase() === 'ios') { // issued with iOS 13
+                    const matches = navigator.userAgent.match(/iphone os (\d+)_(\d+)/i)
+                    if (matches) {
+                        const version = {
+                            major: parseInt(matches[1]),
+                            minor: parseInt(matches[2]),
+                        }
+                        if (version.major < 13) {
+                            connect()
+                        }
+                    }
+                } else connect()
             }
 
             this.playing = true
