@@ -1,4 +1,7 @@
 import {Str} from './str'
+import {TimeoutCaller} from './timeout-caller'
+import {FrameCaller} from '@/app/support/frame-caller'
+import {Browser} from './browser'
 
 export function time() {
     return new Date().getTime()
@@ -48,3 +51,6 @@ export function registerGlobalPropertyFactory(Class, propertyName, getter) {
 }
 
 export const str = new Str()
+export const timeoutCaller = new TimeoutCaller()
+export const frameCaller = new FrameCaller()
+export const browser = new Browser()
