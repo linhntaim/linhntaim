@@ -1,0 +1,1 @@
+{"version":3,"file":"js/lang-en-js-legacy.d9c6617f.js","mappings":"8IAAA,cACIA,MAAO","sources":["webpack://@linhntaim/linhntaim/./src/lang/en.js"],"sourcesContent":["export default {\r\n    hello: 'Hello {world}',\r\n}\r\n"],"names":["hello"],"sourceRoot":""}
