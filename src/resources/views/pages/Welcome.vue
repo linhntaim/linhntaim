@@ -66,12 +66,14 @@ export default {
     },
     methods: {
         load() {
-            axios.get(`${this.appUrl}/assets/sounds/manifest.json`).then(response => {
-                this.audioPlayer
-                    .add(...response.data.sounds.map(sound => `${this.appUrl}/assets/sounds/${sound}`))
-                    .shuffle()
-                this.play()
-            })
+            axios.get(`${this.appUrl}/assets/sounds/manifest.json`)
+                .then(response => {
+                    this.audioPlayer
+                        .add(...response.data.sounds.map(sound => `${this.appUrl}/assets/sounds/${sound}`))
+                        .shuffle()
+                    this.play()
+                })
+                .catch(() => this.offCanvas())
         },
         async play() {
             if (await this.audioPlayer.start()) {
