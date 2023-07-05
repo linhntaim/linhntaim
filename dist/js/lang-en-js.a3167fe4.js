@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunk_linhntaim_linhntaim"]=self["webpackChunk_linhntaim_linhntaim"]||[]).push([[820],{8367:function(l,n,i){i.r(n),n["default"]={hello:"Hello {world}"}}}]);
+//# sourceMappingURL=lang-en-js.a3167fe4.js.map

@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunk_linhntaim_linhntaim"]=self["webpackChunk_linhntaim_linhntaim"]||[]).push([[355],{7551:function(n,i,l){l.r(i),i["default"]={hello:"Xin chào {world}"}}}]);
-//# sourceMappingURL=lang-vi-js-legacy.8200a1ad.js.map
